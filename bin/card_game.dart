@@ -1,38 +1,27 @@
 library Lucky9;
 
-import 'Constants.dart';
+import 'constants.dart';
 import 'package:stack/stack.dart';
-import 'Card.dart';
-import 'Player.dart';
+import 'card.dart';
+import 'player.dart';
 
 class CardGame {
   List stackOfCards = [];
-  Set<Player> players =  Set<Player>();
-  Ranks ranksInstance =  Ranks();
+  Set<Player> players = Set<Player>();
   void addAllCards() {
     print("Initializing game, adding all cards.");
+
     for (Suits s in Suits.values) {
-      for (String key in ranksInstance.rankMaps.keys) {
-        switch (key) {
-          case "jack":
-            continue;
-          case "queen":
-            continue;
-          case "king":
-            continue;
-          case "Ten":
-            continue;
-          default:
-            stackOfCards.add(Card(s, ranksInstance.rankMaps[key]));
-        }
+      for (Ranks r in Ranks.values) {
+        stackOfCards.add(Card(s.getSuit, r.getRank));
       }
     }
   }
 
   void fillDeck() {
     for (Suits s in Suits.values) {
-      for (String key in ranksInstance.rankMaps.keys) {
-        stackOfCards.add(Card(s, ranksInstance.rankMaps[key]));
+      for (Ranks r in Ranks.values) {
+        stackOfCards.add(Card(s.getSuit, r.getRank));
       }
     }
   }

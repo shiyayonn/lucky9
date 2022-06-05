@@ -1,33 +1,31 @@
 library Lucky9;
 
-import 'Constants.dart';
+import 'constants.dart';
 
 class Card {
   var _suit;
-  var _rank;
+  int _rank;
 
-  Card(this._suit, this._rank) {
-    this._suit = this._suit.toString().split(".")[1];
-  }
+  Card(this._suit, this._rank);
 
   String get_suit() {
     return _suit;
   }
 
-  void set_suit(Suits suit) {
+  void set_suit(String suit) {
     this._suit = suit;
   }
 
-  String get_rank() {
+  int get_rank() {
     return _rank;
   }
 
-  void set_rank(Ranks rank) {
+  void set_rank(int rank) {
     this._rank = rank;
   }
 
   String getName() {
-    switch (int.parse(_rank)) {
+    switch ((_rank)) {
       case 1:
         return "Ace of  $_suit";
       case 11:
@@ -42,47 +40,36 @@ class Card {
   }
 
   String getSymbol() {
-    Symbols symbolsInstance = Symbols();
-    switch (_suit.toString()) {
-      case "spades":
-        return symbolsInstance.symbolsMap["spades"].toString();
-      case "hearts":
-        return symbolsInstance.symbolsMap["hearts"].toString();
-      case "diamonds":
-        return symbolsInstance.symbolsMap["diamonds"].toString();
-      case "clubs":
-        return symbolsInstance.symbolsMap["clubs"].toString();
-      default:
-        return "";
-    }
+    return _suit;
+    
   }
 
   void displayCardInfo() {
     print("Card:" + getName());
-    print("Value: $_rank.toInt()");
+    print("Value: $_rank");
     print("Symbol: " + getSymbol());
   }
 
   void displayCardInterface() {
     print("╔══════╗");
-    switch (int.parse(_rank)) {
+    switch ((_rank)) {
       case 1:
-        print("║ A  getSymbol())     ║");
+        print("║ A  ${getSymbol()}    ║");
         break;
       case 11:
-        print("║ J  getSymbol())     ║");
+        print("║ J  ${getSymbol()}     ║");
         break;
       case 12:
-        print("║ Q  getSymbol())     ║");
+        print("║ Q  ${getSymbol()}     ║");
         break;
       case 13:
-        print("║ K  getSymbol())     ║");
+        print("║ K  ${getSymbol()}     ║");
         break;
       case 10:
-        print("║ ${_rank}  ${getSymbol().toString()} ║");
+        print("║ ${_rank}  ${getSymbol()} ║");
         break;
       default:
-        print("║ ${_rank}  ${getSymbol().toString()} ║");
+        print("║ ${_rank}  ${getSymbol()} ║");
     }
     print("║      ║");
     print("║      ║");

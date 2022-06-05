@@ -1,7 +1,7 @@
 import 'package:assignment_1/assignment_1.dart' as assignment_1;
-import 'Lucky9.dart';
-import 'Player.dart';
-import 'Card.dart';
+import 'lucky9.dart';
+import 'player.dart';
+import 'card.dart';
 
 Future<void> main(List<String> arguments) async {
   // Create atleast 4 players
@@ -14,11 +14,14 @@ Future<void> main(List<String> arguments) async {
   // Initialize game cards
   game.addAllCards();
 
+  game.removeInvalidCards();
+
   // Shuffle the deck
   game.shuffleDeck();
 
   // Give each player two cards
   for (Player player in game.getPlayers()) {
+
     player.drawCard(game.stackOfCards);
     player.drawCard(game.stackOfCards);
   }
@@ -35,8 +38,7 @@ Future<void> main(List<String> arguments) async {
     print("--------------------------------------------");
     print("\nWinner/s: ");
     for (Player player in game.getWinners()) {
-      print(
-          "${player.get_name().toString()}  : ${game.getValue(player.getCards())}");
+      print("${player.getName()}  : ${game.getValue(player.getCards())}");
     }
   }
 
@@ -52,10 +54,9 @@ Future<void> main(List<String> arguments) async {
     // format
     print("--------------------------------------------");
     for (Player player in game.getPlayers()) {
-      print("${player.get_name()} : ${game.getValue(player.getCards())}");
+      print("${player.getName()} : ${game.getValue(player.getCards())}");
       await Future.delayed(Duration(seconds: 2));
       await showCards(player.getCards());
-      //${player.currentCards().toString()}
     }
   }
 

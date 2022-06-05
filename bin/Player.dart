@@ -2,7 +2,7 @@ library Lucky9;
 
 import 'package:stack/stack.dart';
 
-import "Card.dart";
+import 'card.dart';
 
 class Player {
   String _name = "";
@@ -10,13 +10,19 @@ class Player {
 
   Player(this._name);
 
-  String get_name() {
+  String getName() {
     return _name;
   }
 
-  void set_name(newName) {
+  void setName(newName) {
     this._name = newName;
   }
+
+
+  
+}
+
+extension playerActions on Player{
 
   void drawCard(List _deck) {
     _cards.add(_deck.last);
@@ -32,8 +38,6 @@ class Player {
   }
 
   void releaseCard(int index) {
-    // System.out.println("Removed " + _cards[index - 1].getName() + " from hand
-    // \n");
     _cards.remove(index - 1);
   }
 
@@ -44,7 +48,6 @@ class Player {
   }
 
   void displayCardInfo(int index) {
-    // _cards.get(index - 1).displayCardInfo();
   }
 
   Set getCards() {

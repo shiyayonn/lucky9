@@ -1,39 +1,53 @@
 library Lucky9;
 
-import 'CardGame.dart';
-import 'Player.dart';
-import 'Card.dart';
+import 'card_game.dart';
+import 'constants.dart';
+import 'player.dart';
+import 'card.dart';
+
 class Lucky9 extends CardGame {
+  int getValue(Set cards) {
+    int value = 0;
+    for (Card card in cards) {
+      value += (card.get_rank());
+    }
+    while (value > 9) {
+      value -= 10;
+    }
 
-	 int getValue(Set cards) {
-		int value = 0;
-		for (Card card in cards) {
-			value += int.parse(card.get_rank());
-		}
-		while (value > 9) {
-			value -= 10;
-		}
+    return value;
+  }
 
-		return value;
-	}
+  void removeInvalidCards() {
+    /* stackOfCards.forEach((element) {
+      print(element.get_rank());
+    }); */
+    stackOfCards.removeWhere((element) =>
+        element.get_rank() == 10 ||
+        element.get_rank() == 11 ||
+        element.get_rank() == 12 ||
+        element.get_rank() == 13);
 
-	 Set<Player> getWinners() {
+    print("ALLOWED CARDS");
+    print(stackOfCards.length);
+  }
 
-		Set<Player> winners = new Set<Player>();
-		int highest = 0;
-		for (Player player in getPlayers()) {
-			int temp = getValue(player.getCards());
-			if (temp > highest) {
-				highest = temp;
-			}
-		}
-		for (Player player in getPlayers()) {
-			int temp = getValue(player.getCards());
-			if (temp == highest) {
-				winners.add(player);
-			}
-		}
+  Set<Player> getWinners() {
+    Set<Player> winners = new Set<Player>();
+    int highest = 0;
+    getPlayers().forEach((p) {
+      int temp = getValue(p.getCards());
+      if (temp > highest) {
+        highest = temp;
+      }
+    });
+    getPlayers().forEach((p) {
+      int temp = getValue(p.getCards());
+      if (temp == highest) {
+        winners.add(p);
+      }
+    });
 
-		return winners;
-	}
+    return winners;
+  }
 }
